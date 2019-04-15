@@ -4,6 +4,9 @@ sudo: true
 python:
   - '3.6'
   - '3.7'
+install:
+  - pip install -r requirements.txt
+  - pip install asq
 script:
   - python -m pytest
 deploy:
