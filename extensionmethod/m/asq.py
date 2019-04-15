@@ -7,18 +7,29 @@
 
 '''
 https://github.com/sixty-north/asq is a power module for iterable object.
+
+install: pip install asq
 '''
 
-asq = None
+def patch_types(*types):
+    asq = None
 
-try:
-    import asq.initiators
-except ImportError:
-    pass
+    try:
+        import asq.initiators
+    except ImportError:
+        return
 
-if asq is not None:
     from .. import ext_method
 
-    @ext_method(list, tuple)
+    @ext_method(*types)
     def query(self):
         return asq.initiators.query(self)
+
+patch_types(
+    list,
+    tuple,
+    dict,
+    type({}.keys()),
+    type({}.values()),
+    type({}.items()),
+)
